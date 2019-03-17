@@ -1,5 +1,15 @@
+html {
+  background-color: #282c34 !important;
+}
+
+input[type=button] {
+  border: 1px solid;
+}
+
 .App {
   text-align: center;
+  color: white;
+  background-color: #282c34 !important;
 }
 
 .App-logo {
@@ -30,4 +40,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+table {
+  background-color: white;
+}
+
+.table-bordered th, .table-bordered td {
+  border: 0px;
 }
