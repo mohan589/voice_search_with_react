@@ -13,7 +13,7 @@ import ArtyomCommandsManager from './ArtyomCommands.js'
 import SearchTable from './SearchTable'
 
 // Create a "globally" accesible instance of Artyom
-const Jarvis = new Artyom()
+const voiceController = new Artyom()
 
 class App extends React.Component {
   constructor (props, context) {
@@ -32,11 +32,11 @@ class App extends React.Component {
       artyomIsReading: false,
       results: [],
       displayTable: false,
-      Jarvis: Jarvis
+      voiceController: voiceController
     }
 
     // Load some commands to Artyom using the commands manager
-    let CommandsManager = new ArtyomCommandsManager(Jarvis)
+    let CommandsManager = new ArtyomCommandsManager(voiceController)
     CommandsManager.loadCommands()
     this.startAssistant()
   }
@@ -46,7 +46,7 @@ class App extends React.Component {
 
     console.log('Artyom succesfully started !')
 
-    Jarvis.initialize({
+    voiceController.initialize({
       lang: 'en-GB',
       debug: true,
       continuous: true,
@@ -54,9 +54,9 @@ class App extends React.Component {
       listen: true
     }).then(() => {
       // Display loaded commands in the console
-      console.log(Jarvis.getAvailableCommands())
+      console.log(voiceController.getAvailableCommands())
 
-      // Jarvis.say('Hello there, how are you?')
+      // voiceController.say('Hello there, how are you?')
 
       _this.setState({
         artyomActive: true
@@ -65,7 +65,7 @@ class App extends React.Component {
       console.error("Oopsy daisy, this shouldn't happen !", err)
     })
 
-    Jarvis.on(['i would like to search for *'], true).then((i, wildcard) => {
+    voiceController.on(['i would like to search for *'], true).then((i, wildcard) => {
       let _this = this
       _this.setState({
         results: [],
@@ -91,7 +91,7 @@ class App extends React.Component {
             results: response.data.results,
             displayTable: true
           })
-          Jarvis.say(list[Math.floor(Math.random() * list.length)])
+          voiceController.say(list[Math.floor(Math.random() * list.length)])
         })
     })
   }
@@ -99,8 +99,8 @@ class App extends React.Component {
   stopAssistant () {
     let _this = this
 
-    Jarvis.fatality().then(() => {
-      console.log('Jarvis has been succesfully stopped')
+    voiceController.fatality().then(() => {
+      console.log('voiceController has been succesfully stopped')
 
       _this.setState({
         artyomActive: false
@@ -122,7 +122,7 @@ class App extends React.Component {
     })
 
     // Speak text with Artyom
-    Jarvis.say(_this.state.textareaValue, {
+    voiceController.say(_this.state.textareaValue, {
       onEnd () {
         _this.setState({
           artyomIsReading: false
@@ -138,7 +138,7 @@ class App extends React.Component {
   }
 
   render () {
-    const { displayTable, results, Jarvis } = this.state
+    const { displayTable, results, voiceController } = this.state
     return (
       <div className='App'>
         <center><h1>Welcome to Percipio Assistant</h1></center>
@@ -155,7 +155,7 @@ class App extends React.Component {
             <div className='col-md-12'>
               <div className='col-md-12 center'>
                 {
-                  displayTable ? (<SearchTable results={results} Jarvis={Jarvis} />) : (<div />)
+                  displayTable ? (<SearchTable results={results} voiceController={voiceController} />) : (<div />)
                 }
               </div>
             </div>

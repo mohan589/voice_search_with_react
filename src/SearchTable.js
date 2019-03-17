@@ -6,36 +6,36 @@ class SearchTable extends Component {
     super(props)
     this.state = {
       results: [],
-      Jarvis: null
+      voiceController: null
     }
   }
 
   componentWillMount () {
     let _this = this
-    console.log('Jarvis', this.props.results)
+    console.log('voiceController', this.props.results)
 
     _this.setState({
       results: this.props.results,
-      Jarvis: this.props.Jarvis
+      voiceController: this.props.voiceController
     })
   }
 
   render () {
-    const { results, Jarvis } = this.state
+    const { results, voiceController } = this.state
     function imageFormatter (cell, row) {
       return "<img width=100 height=100 src='" + cell + "'/>"
     }
-    Jarvis.on(['i would see *'], true).then((i, data) => {
+    voiceController.on(['i would see *'], true).then((i, data) => {
       results.map(obj => {
         if (obj.title.toLowerCase() === data.toLowerCase()) {
-          Jarvis.say('you said ' + data)
+          voiceController.say('you said ' + data)
         }
       })
     })
 
-    Jarvis.on(['ok I am done *'], true).then((i, wildcard) => {
-      Jarvis.say('oh that is great, see you again, bye for now')
-      Jarvis.fatality()
+    voiceController.on(['ok I am done *'], true).then((i, wildcard) => {
+      voiceController.say('oh that is great, see you again, bye for now')
+      voiceController.fatality()
     })
 
     return (
