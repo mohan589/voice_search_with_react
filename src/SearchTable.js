@@ -50,6 +50,9 @@ class SearchTable extends Component {
           <TableHeaderColumn dataFormat={imageFormatter} dataField='imageUrl'>
             Image
           </TableHeaderColumn>
+          <TableHeaderColumn dataField='contentType'>
+            ContentType
+          </TableHeaderColumn>
         </BootstrapTable>
       </div>
     )
