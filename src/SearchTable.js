@@ -22,6 +22,9 @@ class SearchTable extends Component {
 
   render () {
     const { results, Jarvis } = this.state
+    function imageFormatter (cell, row) {
+      return "<img width=100 height=100 src='" + cell + "'/>"
+    }
     Jarvis.on(['i would see *'], true).then((i, data) => {
       results.map(obj => {
         if (obj.title.toLowerCase() === data.toLowerCase()) {
@@ -44,7 +47,7 @@ class SearchTable extends Component {
           <TableHeaderColumn dataField='description'>
             Description
           </TableHeaderColumn>
-          <TableHeaderColumn dataField='imageUrl'>
+          <TableHeaderColumn dataFormat={imageFormatter} dataField='imageUrl'>
             Image
           </TableHeaderColumn>
         </BootstrapTable>

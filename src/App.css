@@ -49,3 +49,12 @@ table {
 .table-bordered th, .table-bordered td {
   border: 0px;
 }
+
+.react-bs-table-container {
+  margin-top: 15px;
+}
+
+.react-bs-container-body {
+  overflow-x: scroll;
+  height: 550px !important;
+}
